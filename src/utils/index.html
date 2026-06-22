@@ -1,0 +1,817 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Housing Lottery Management — Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        font-family: "DM Sans", sans-serif;
+      }
+      body {
+        background: #f0f2f5;
+      }
+      .mono {
+        font-family: "DM Mono", monospace;
+      }
+
+      .stat-card {
+        background: #fff;
+        border-radius: 14px;
+        padding: 20px 22px;
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07);
+        transition: box-shadow 0.2s;
+      }
+      .stat-card:hover {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      .icon-wrap {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .chart-card {
+        background: #fff;
+        border-radius: 14px;
+        padding: 24px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07);
+      }
+
+      .progress-bar-bg {
+        background: #e8edf5;
+        border-radius: 99px;
+        height: 8px;
+        overflow: hidden;
+      }
+      .progress-bar-fill {
+        height: 100%;
+        border-radius: 99px;
+        background: #2563eb;
+      }
+
+      .badge-approved {
+        color: #16a34a;
+        font-weight: 600;
+      }
+      .badge-reviewed {
+        color: #2563eb;
+        font-weight: 600;
+      }
+      .badge-pending {
+        color: #d97706;
+        font-weight: 600;
+      }
+
+      .topbar {
+        background: #fff;
+        border-bottom: 1px solid #e5e7eb;
+        height: 54px;
+        display: flex;
+        align-items: center;
+        padding: 0 28px;
+        gap: 8px;
+      }
+      .breadcrumb {
+        font-size: 13px;
+        color: #9ca3af;
+      }
+      .breadcrumb span {
+        color: #111827;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body class="flex min-h-screen">
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col min-w-0">
+      <!-- Topbar -->
+      <div class="topbar">
+        <div class="breadcrumb flex items-center gap-1">
+          Dashboard
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M9 18l6-6-6-6"
+              stroke="#9ca3af"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+          <span>Analytics</span>
+        </div>
+        <div class="ml-auto flex items-center gap-3">
+          <button
+            class="relative w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-100"
+          >
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
+              <path
+                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0 1 18 14.158V11a6.002 6.002 0 0 0-4-5.659V5a2 2 0 1 0-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 1 1-6 0v-1m6 0H9"
+                stroke="#6b7280"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                fill="none"
+              />
+            </svg>
+            <span
+              class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"
+            ></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Page Content -->
+      <div class="p-6 overflow-y-auto flex-1">
+        <!-- Page Title -->
+        <div class="mb-6">
+          <h1 class="text-2xl font-bold text-gray-900">Dashboard</h1>
+          <p class="text-sm text-gray-500 mt-0.5">
+            Housing Lottery Management System — Overview
+          </p>
+        </div>
+
+        <!-- Stat Cards Row 1 -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+          <!-- Total Applicants -->
+          <div class="stat-card">
+            <div class="icon-wrap bg-blue-50">
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
+                <circle cx="9" cy="7" r="4" fill="#2563eb" opacity=".8" />
+                <circle cx="17" cy="9" r="3" fill="#2563eb" opacity=".4" />
+                <path
+                  d="M1 20c0-3.87 3.58-7 8-7s8 3.13 8 7"
+                  fill="#2563eb"
+                  opacity=".7"
+                />
+                <path
+                  d="M19 14c2 .6 4 2.2 4 5"
+                  stroke="#2563eb"
+                  stroke-width="1.5"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
+            <div>
+              <div class="text-2xl font-bold text-gray-900 leading-tight">
+                48,320
+              </div>
+              <div class="text-sm text-gray-500 mt-0.5">Total Applicants</div>
+              <div class="text-xs text-green-600 font-medium mt-1">
+                +2,140 this month
+              </div>
+            </div>
+          </div>
+          <!-- Pending Approval -->
+          <div class="stat-card">
+            <div class="icon-wrap bg-yellow-50">
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="9"
+                  stroke="#d97706"
+                  stroke-width="1.8"
+                  fill="none"
+                />
+                <path
+                  d="M12 7v5l3 3"
+                  stroke="#d97706"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  fill="none"
+                />
+              </svg>
+            </div>
+            <div>
+              <div class="text-2xl font-bold text-gray-900 leading-tight">
+                3,214
+              </div>
+              <div class="text-sm text-gray-500 mt-0.5">Pending Approval</div>
+              <div class="text-xs text-yellow-600 font-medium mt-1">
+                +186 today
+              </div>
+            </div>
+          </div>
+          <!-- Approved -->
+          <div class="stat-card">
+            <div class="icon-wrap bg-green-50">
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="9"
+                  stroke="#16a34a"
+                  stroke-width="1.8"
+                  fill="none"
+                />
+                <path
+                  d="M8 12l3 3 5-5"
+                  stroke="#16a34a"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  fill="none"
+                />
+              </svg>
+            </div>
+            <div>
+              <div class="text-2xl font-bold text-gray-900 leading-tight">
+                38,750
+              </div>
+              <div class="text-sm text-gray-500 mt-0.5">Approved</div>
+              <div class="text-xs text-gray-400 font-medium mt-1">
+                80.2% approval rate
+              </div>
+            </div>
+          </div>
+          <!-- Rejected -->
+          <div class="stat-card">
+            <div class="icon-wrap bg-red-50">
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="9"
+                  stroke="#dc2626"
+                  stroke-width="1.8"
+                  fill="none"
+                />
+                <path
+                  d="M9 9l6 6M15 9l-6 6"
+                  stroke="#dc2626"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  fill="none"
+                />
+              </svg>
+            </div>
+            <div>
+              <div class="text-2xl font-bold text-gray-900 leading-tight">
+                6,356
+              </div>
+              <div class="text-sm text-gray-500 mt-0.5">Rejected</div>
+              <div class="text-xs text-gray-400 font-medium mt-1">
+                13.1% rejection rate
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stat Cards Row 2 -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <!-- Update Requests -->
+          <div class="stat-card">
+            <div class="icon-wrap bg-purple-50">
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
+                <rect
+                  x="3"
+                  y="4"
+                  width="18"
+                  height="16"
+                  rx="2"
+                  stroke="#7c3aed"
+                  stroke-width="1.8"
+                  fill="none"
+                />
+                <path
+                  d="M3 9h18M8 4v5M16 4v5"
+                  stroke="#7c3aed"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
+            <div>
+              <div class="text-2xl font-bold text-gray-900 leading-tight">
+                412
+              </div>
+              <div class="text-sm text-gray-500 mt-0.5">Update Requests</div>
+              <div class="text-xs text-gray-400 mt-1">38 in review</div>
+            </div>
+          </div>
+          <!-- Missing Claims -->
+          <div class="stat-card">
+            <div class="icon-wrap bg-orange-50">
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
+                <path
+                  d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9l-7-7Z"
+                  stroke="#ea580c"
+                  stroke-width="1.8"
+                  fill="none"
+                />
+                <path
+                  d="M13 2v7h7M12 12v4M12 18h.01"
+                  stroke="#ea580c"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  fill="none"
+                />
+              </svg>
+            </div>
+            <div>
+              <div class="text-2xl font-bold text-gray-900 leading-tight">
+                87
+              </div>
+              <div class="text-sm text-gray-500 mt-0.5">Missing Claims</div>
+              <div class="text-xs text-gray-400 mt-1">12 pending review</div>
+            </div>
+          </div>
+          <!-- Active Campaigns -->
+          <div class="stat-card">
+            <div class="icon-wrap bg-teal-50">
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
+                <rect
+                  x="2"
+                  y="7"
+                  width="20"
+                  height="14"
+                  rx="2"
+                  stroke="#0d9488"
+                  stroke-width="1.8"
+                  fill="none"
+                />
+                <path
+                  d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2M12 12v4M10 14h4"
+                  stroke="#0d9488"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  fill="none"
+                />
+              </svg>
+            </div>
+            <div>
+              <div class="text-2xl font-bold text-gray-900 leading-tight">
+                3
+              </div>
+              <div class="text-sm text-gray-500 mt-0.5">Active Campaigns</div>
+              <div class="text-xs text-gray-400 mt-1">
+                2 open for registration
+              </div>
+            </div>
+          </div>
+          <!-- Payments Processed -->
+          <div class="stat-card">
+            <div class="icon-wrap bg-indigo-50">
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
+                <rect
+                  x="2"
+                  y="6"
+                  width="20"
+                  height="13"
+                  rx="2"
+                  stroke="#4f46e5"
+                  stroke-width="1.8"
+                  fill="none"
+                />
+                <path d="M2 10h20" stroke="#4f46e5" stroke-width="1.5" />
+                <path
+                  d="M6 14h4M15 14h3"
+                  stroke="#4f46e5"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
+            <div>
+              <div class="text-2xl font-bold text-gray-900 leading-tight">
+                ETB 12.4M
+              </div>
+              <div class="text-sm text-gray-500 mt-0.5">Payments Processed</div>
+              <div class="text-xs text-gray-400 mt-1">This month</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+          <!-- Bar Chart -->
+          <div class="chart-card lg:col-span-2">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-sm font-semibold text-gray-800">
+                Monthly Registrations vs. Approvals
+              </h2>
+              <div class="flex items-center gap-4 text-xs text-gray-500">
+                <span class="flex items-center gap-1.5"
+                  ><span
+                    class="inline-block w-3 h-3 rounded-sm bg-blue-300"
+                  ></span
+                  >Registered</span
+                >
+                <span class="flex items-center gap-1.5"
+                  ><span
+                    class="inline-block w-3 h-3 rounded-sm bg-blue-800"
+                  ></span
+                  >Approved</span
+                >
+              </div>
+            </div>
+            <canvas id="barChart" height="160"></canvas>
+          </div>
+
+          <!-- Donut Chart -->
+          <div class="chart-card">
+            <h2 class="text-sm font-semibold text-gray-800 mb-4">
+              Program Distribution
+            </h2>
+            <div class="flex flex-col items-center">
+              <canvas id="donutChart" width="170" height="170"></canvas>
+              <div class="mt-4 w-full space-y-2">
+                <div
+                  class="flex items-center justify-between text-xs text-gray-600"
+                >
+                  <span class="flex items-center gap-1.5"
+                    ><span
+                      class="inline-block w-2.5 h-2.5 rounded-full"
+                      style="background: #1e3a8a"
+                    ></span
+                    >40/60 Condo</span
+                  ><span class="font-semibold">42%</span>
+                </div>
+                <div
+                  class="flex items-center justify-between text-xs text-gray-600"
+                >
+                  <span class="flex items-center gap-1.5"
+                    ><span
+                      class="inline-block w-2.5 h-2.5 rounded-full"
+                      style="background: #2563eb"
+                    ></span
+                    >20/80 Condo</span
+                  ><span class="font-semibold">26%</span>
+                </div>
+                <div
+                  class="flex items-center justify-between text-xs text-gray-600"
+                >
+                  <span class="flex items-center gap-1.5"
+                    ><span
+                      class="inline-block w-2.5 h-2.5 rounded-full"
+                      style="background: #60a5fa"
+                    ></span
+                    >Cooperative</span
+                  ><span class="font-semibold">15%</span>
+                </div>
+                <div
+                  class="flex items-center justify-between text-xs text-gray-600"
+                >
+                  <span class="flex items-center gap-1.5"
+                    ><span
+                      class="inline-block w-2.5 h-2.5 rounded-full"
+                      style="background: #93c5fd"
+                    ></span
+                    >Social Housing</span
+                  ><span class="font-semibold">9%</span>
+                </div>
+                <div
+                  class="flex items-center justify-between text-xs text-gray-600"
+                >
+                  <span class="flex items-center gap-1.5"
+                    ><span
+                      class="inline-block w-2.5 h-2.5 rounded-full"
+                      style="background: #bfdbfe"
+                    ></span
+                    >Rental</span
+                  ><span class="font-semibold">6%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Row -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <!-- Applicants by Sub-City -->
+          <div class="chart-card lg:col-span-2">
+            <h2 class="text-sm font-semibold text-gray-800 mb-4">
+              Applicants by Sub-City
+            </h2>
+            <div class="space-y-3">
+              <!-- Bole -->
+              <div>
+                <div
+                  class="flex items-center justify-between text-xs text-gray-600 mb-1"
+                >
+                  <span class="w-16 shrink-0">Bole</span>
+                  <div class="flex-1 mx-3">
+                    <div class="progress-bar-bg">
+                      <div
+                        class="progress-bar-fill"
+                        style="width: 96%; background: #2563eb"
+                      ></div>
+                    </div>
+                  </div>
+                  <span class="mono text-gray-500 w-8 text-right">7.8k</span>
+                </div>
+              </div>
+              <div>
+                <div
+                  class="flex items-center justify-between text-xs text-gray-600 mb-1"
+                >
+                  <span class="w-16 shrink-0">Kirkos</span>
+                  <div class="flex-1 mx-3">
+                    <div class="progress-bar-bg">
+                      <div
+                        class="progress-bar-fill"
+                        style="width: 84%; background: #2563eb"
+                      ></div>
+                    </div>
+                  </div>
+                  <span class="mono text-gray-500 w-8 text-right">6.5k</span>
+                </div>
+              </div>
+              <div>
+                <div
+                  class="flex items-center justify-between text-xs text-gray-600 mb-1"
+                >
+                  <span class="w-16 shrink-0">Yeka</span>
+                  <div class="flex-1 mx-3">
+                    <div class="progress-bar-bg">
+                      <div
+                        class="progress-bar-fill"
+                        style="width: 76%; background: #2563eb"
+                      ></div>
+                    </div>
+                  </div>
+                  <span class="mono text-gray-500 w-8 text-right">5.9k</span>
+                </div>
+              </div>
+              <div>
+                <div
+                  class="flex items-center justify-between text-xs text-gray-600 mb-1"
+                >
+                  <span class="w-16 shrink-0">Arada</span>
+                  <div class="flex-1 mx-3">
+                    <div class="progress-bar-bg">
+                      <div
+                        class="progress-bar-fill"
+                        style="width: 67%; background: #2563eb"
+                      ></div>
+                    </div>
+                  </div>
+                  <span class="mono text-gray-500 w-8 text-right">5.2k</span>
+                </div>
+              </div>
+              <div>
+                <div
+                  class="flex items-center justify-between text-xs text-gray-600 mb-1"
+                >
+                  <span class="w-16 shrink-0">Gulele</span>
+                  <div class="flex-1 mx-3">
+                    <div class="progress-bar-bg">
+                      <div
+                        class="progress-bar-fill"
+                        style="width: 63%; background: #2563eb"
+                      ></div>
+                    </div>
+                  </div>
+                  <span class="mono text-gray-500 w-8 text-right">4.9k</span>
+                </div>
+              </div>
+              <div>
+                <div
+                  class="flex items-center justify-between text-xs text-gray-600 mb-1"
+                >
+                  <span class="w-16 shrink-0">Lideta</span>
+                  <div class="flex-1 mx-3">
+                    <div class="progress-bar-bg">
+                      <div
+                        class="progress-bar-fill"
+                        style="width: 56%; background: #93c5fd"
+                      ></div>
+                    </div>
+                  </div>
+                  <span class="mono text-gray-500 w-8 text-right">4.3k</span>
+                </div>
+              </div>
+              <div>
+                <div
+                  class="flex items-center justify-between text-xs text-gray-600 mb-1"
+                >
+                  <span class="w-16 shrink-0">Nifas Silk</span>
+                  <div class="flex-1 mx-3">
+                    <div class="progress-bar-bg">
+                      <div
+                        class="progress-bar-fill"
+                        style="width: 48%; background: #93c5fd"
+                      ></div>
+                    </div>
+                  </div>
+                  <span class="mono text-gray-500 w-8 text-right">3.7k</span>
+                </div>
+              </div>
+              <div>
+                <div
+                  class="flex items-center justify-between text-xs text-gray-600 mb-1"
+                >
+                  <span class="w-16 shrink-0">Kolfe</span>
+                  <div class="flex-1 mx-3">
+                    <div class="progress-bar-bg">
+                      <div
+                        class="progress-bar-fill"
+                        style="width: 38%; background: #93c5fd"
+                      ></div>
+                    </div>
+                  </div>
+                  <span class="mono text-gray-500 w-8 text-right">2.9k</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Activity -->
+          <div class="chart-card">
+            <h2 class="text-sm font-semibold text-gray-800 mb-4">
+              Recent Activity
+            </h2>
+            <div class="space-y-4">
+              <div class="flex gap-3">
+                <div class="text-xs text-gray-400 mono w-10 shrink-0 pt-0.5">
+                  09:14
+                </div>
+                <div class="text-xs text-gray-700 leading-snug">
+                  <span class="font-semibold text-gray-900">Dawit Tesfaye</span>
+                  <span class="badge-approved"> Approved</span>
+                  APP-2023-000041 registration
+                </div>
+              </div>
+              <div class="flex gap-3">
+                <div class="text-xs text-gray-400 mono w-10 shrink-0 pt-0.5">
+                  10:22
+                </div>
+                <div class="text-xs text-gray-700 leading-snug">
+                  <span class="font-semibold text-gray-900">Mekdes Alemu</span>
+                  <span class="badge-reviewed"> Reviewed</span>
+                  Update request for APP-2023-000012
+                </div>
+              </div>
+              <div class="flex gap-3">
+                <div class="text-xs text-gray-400 mono w-10 shrink-0 pt-0.5">
+                  11:05
+                </div>
+                <div class="text-xs text-gray-700 leading-snug">
+                  <span class="font-semibold text-gray-900">Yonas Girma</span>
+                  <span class="badge-pending"> Submitted</span>
+                  New application APP-2023-000589
+                </div>
+              </div>
+              <div class="flex gap-3">
+                <div class="text-xs text-gray-400 mono w-10 shrink-0 pt-0.5">
+                  11:47
+                </div>
+                <div class="text-xs text-gray-700 leading-snug">
+                  <span class="font-semibold text-gray-900">Tigist Bekele</span>
+                  <span class="badge-approved"> Approved</span>
+                  APP-2023-000203 approved by admin
+                </div>
+              </div>
+              <div class="flex gap-3">
+                <div class="text-xs text-gray-400 mono w-10 shrink-0 pt-0.5">
+                  12:30
+                </div>
+                <div class="text-xs text-gray-700 leading-snug">
+                  <span class="font-semibold text-gray-900">Selam Haile</span>
+                  <span class="text-red-600 font-semibold"> Rejected</span>
+                  APP-2023-000077 missing documents
+                </div>
+              </div>
+              <div class="flex gap-3">
+                <div class="text-xs text-gray-400 mono w-10 shrink-0 pt-0.5">
+                  13:15
+                </div>
+                <div class="text-xs text-gray-700 leading-snug">
+                  <span class="font-semibold text-gray-900">Abebe Worku</span>
+                  <span class="badge-reviewed"> Reviewed</span>
+                  Lottery draw for Campaign #3 opened
+                </div>
+              </div>
+              <div class="flex gap-3">
+                <div class="text-xs text-gray-400 mono w-10 shrink-0 pt-0.5">
+                  14:02
+                </div>
+                <div class="text-xs text-gray-700 leading-snug">
+                  <span class="font-semibold text-gray-900">Hana Mengistu</span>
+                  <span class="badge-pending"> Pending</span>
+                  Payment ETB 3,200 for APP-2023-000441
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Bar Chart
+      const barCtx = document.getElementById("barChart").getContext("2d");
+      new Chart(barCtx, {
+        type: "bar",
+        data: {
+          labels: [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
+          ],
+          datasets: [
+            {
+              label: "Registered",
+              data: [
+                2100, 1800, 2700, 2500, 3100, 2600, 2400, 2800, 3400, 2700,
+                2500, 2100,
+              ],
+              backgroundColor: "#93c5fd",
+              borderRadius: 4,
+              barPercentage: 0.7,
+              categoryPercentage: 0.7,
+            },
+            {
+              label: "Approved",
+              data: [
+                1600, 1400, 2200, 2000, 2500, 2100, 1900, 2300, 2800, 2200,
+                2000, 1700,
+              ],
+              backgroundColor: "#1e3a8a",
+              borderRadius: 4,
+              barPercentage: 0.7,
+              categoryPercentage: 0.7,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          plugins: { legend: { display: false }, tooltip: { mode: "index" } },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { font: { size: 11 }, color: "#9ca3af" },
+            },
+            y: {
+              grid: { color: "#f3f4f6" },
+              ticks: { font: { size: 11 }, color: "#9ca3af" },
+              border: { display: false },
+            },
+          },
+        },
+      });
+
+      // Donut Chart
+      const donutCtx = document.getElementById("donutChart").getContext("2d");
+      new Chart(donutCtx, {
+        type: "doughnut",
+        data: {
+          labels: [
+            "40/60 Condo",
+            "20/80 Condo",
+            "Cooperative",
+            "Social Housing",
+            "Rental",
+          ],
+          datasets: [
+            {
+              data: [42, 26, 15, 9, 6],
+              backgroundColor: [
+                "#1e3a8a",
+                "#2563eb",
+                "#60a5fa",
+                "#93c5fd",
+                "#bfdbfe",
+              ],
+              borderWidth: 2,
+              borderColor: "#fff",
+              hoverOffset: 5,
+            },
+          ],
+        },
+        options: {
+          cutout: "65%",
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: { label: (ctx) => ` ${ctx.label}: ${ctx.parsed}%` },
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

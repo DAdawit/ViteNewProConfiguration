@@ -1,0 +1,116 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+body {
+  --tt-toolbar-height: 44px;
+  --tt-theme-text: var(--tt-gray-light-900);
+
+  .dark & {
+    --tt-theme-text: var(--tt-gray-dark-900);
+  }
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  color: var(--tt-theme-text);
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  padding: 0;
+  overscroll-behavior-y: none;
+}
+
+html,
+body {
+  overscroll-behavior-x: none;
+}
+
+html,
+body,
+#root,
+#app {
+  height: 100%;
+  background-color: var(--tt-bg-color);
+}
+
+::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--tt-scrollbar-color) transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--tt-scrollbar-color);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tiptap.ProseMirror {
+  font-family: "DM Sans", sans-serif;
+}
+
+/*
+ * KEY FIX:
+ * The wrapper becomes a flex column that fills its parent completely.
+ * overflow is NOT set here — the parent's overflow-hidden clips children
+ * that escape the boundary, but because the toolbar is a normal flex child
+ * (not overflowing), it remains fully visible. Only .simple-editor-scroll-area
+ * scrolls internally.
+ */
+.simple-editor-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* No overflow property here — let the parent's overflow-hidden do its job
+     without also swallowing the toolbar. */
+}
+
+/*
+ * KEY FIX: The toolbar is a flex child with a fixed, shrink-to-fit height.
+ * It sits above the scroll area and is never hidden by the parent clip.
+ */
+.simple-editor-wrapper > [data-toolbar],
+.simple-editor-wrapper > .tiptap-toolbar {
+  flex-shrink: 0;
+  /* Ensure the toolbar always renders on top of content */
+  z-index: 9;
+}
+
+/*
+ * KEY FIX: This new wrapper div takes all remaining vertical space and
+ * handles scrolling in isolation, so the toolbar above it stays put.
+ */
+.simple-editor-scroll-area {
+  flex: 1;
+  min-height: 0; /* Required for flex children to shrink below their content size */
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.simple-editor-content {
+   max-width: 1500px;
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  border-inline: 1px solid var(--tt-border-color);
+}
+
+.simple-editor-content .tiptap.ProseMirror.simple-editor {
+  flex: 1;
+  padding: 3rem 3rem 30vh;
+}
+
+@media screen and (max-width: 480px) {
+  .simple-editor-content .tiptap.ProseMirror.simple-editor {
+    padding: 1rem 1.5rem 30vh;
+  }
+}
