@@ -16,7 +16,7 @@ import {
   Collapsible,
   CollapsibleTrigger,
   CollapsibleContent,
-} from "../components/collapsible";
+} from "../components/ui/collapsible";
 import { Building2, ChevronDown, LogOut, User } from "lucide-react";
 import {
   DropdownMenu,

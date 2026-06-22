@@ -14,6 +14,8 @@ import {
 import LanguageChange from "./LanguageChange";
 import { language as langData } from "@/utils/language";
 import { Skeleton } from "@/components/ui/skeleton";
+import ThemeToggleButton from "../ThemeToggleButton";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 
 const Navbar = () => {
   const language = useAppStore((state) => state.language);
@@ -176,113 +178,118 @@ const Navbar = () => {
   const activeRouteData = getActiveRouteData();
 
   return (
-    <div className="flex bg-base-white border-b border-border">
-      <div className="w-full h-13 flex justify-between items-center px-5 py-3.5">
-        <div className="flex-1 h-full flex justify-start items-center">
-          <Breadcrumb>
-            <BreadcrumbList>
-              {activeRouteData ? (
-                <>
-                  <BreadcrumbItem>
-                    <BreadcrumbLink
-                      asChild
-                      className="text-foreground hover:text-primary-600"
-                    >
-                      <Link to={activeRouteData.groupUrl || "#"}>
-                        {activeRouteData.groupTitle}
-                      </Link>
-                    </BreadcrumbLink>
-                  </BreadcrumbItem>
+    <header className="sticky top-0 z-50 flex w-full h-16 items-center justify-between bg-white border-b border-border px-4 gap-4">
+      {" "}
+      <div className="flex w-full items-center justify-between gap-2">
+        <div className="flex items-center gap-2 min-w-0 flex-1">
+          <SidebarTrigger className="text-black md:hidden" />
+          <div className="flex-1 min-w-0 overflow-hidden">
+            <Breadcrumb>
+              <BreadcrumbList className="flex-nowrap overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                {activeRouteData ? (
+                  <>
+                    <BreadcrumbItem>
+                      <BreadcrumbLink
+                        asChild
+                        className="text-foreground hover:text-primary-600 whitespace-nowrap"
+                      >
+                        <Link to={activeRouteData.groupUrl || "#"}>
+                          {activeRouteData.groupTitle}
+                        </Link>
+                      </BreadcrumbLink>
+                    </BreadcrumbItem>
 
-                  {activeRouteData.extraCrumbs &&
-                    activeRouteData.extraCrumbs.map((crumb, idx) => (
-                      <React.Fragment key={idx}>
+                    {activeRouteData.extraCrumbs &&
+                      activeRouteData.extraCrumbs.map((crumb, idx) => (
+                        <React.Fragment key={idx}>
+                          <BreadcrumbSeparator className="text-muted-foreground" />
+                          <BreadcrumbItem>
+                            <BreadcrumbLink
+                              asChild
+                              className="text-foreground hover:text-primary-600 whitespace-nowrap"
+                            >
+                              <Link to={crumb.url}>{crumb.title}</Link>
+                            </BreadcrumbLink>
+                          </BreadcrumbItem>
+                        </React.Fragment>
+                      ))}
+
+                    {activeRouteData.subItemTitle ? (
+                      <>
                         <BreadcrumbSeparator className="text-muted-foreground" />
                         <BreadcrumbItem>
                           <BreadcrumbLink
                             asChild
-                            className="text-foreground hover:text-primary-600"
+                            className="text-foreground hover:text-primary-600 whitespace-nowrap"
                           >
-                            <Link to={crumb.url}>{crumb.title}</Link>
-                          </BreadcrumbLink>
-                        </BreadcrumbItem>
-                      </React.Fragment>
-                    ))}
-
-                  {activeRouteData.subItemTitle ? (
-                    <>
-                      <BreadcrumbSeparator className="text-muted-foreground" />
-                      <BreadcrumbItem>
-                        <BreadcrumbLink
-                          asChild
-                          className="text-foreground hover:text-primary-600"
-                        >
-                          <Link to={activeRouteData.itemUrl || "#"}>
-                            {activeRouteData.itemTitle}
-                          </Link>
-                        </BreadcrumbLink>
-                      </BreadcrumbItem>
-                      <BreadcrumbSeparator className="text-muted-foreground" />
-                      <BreadcrumbItem>
-                        {activeRouteData.leafTitle ? (
-                          <BreadcrumbLink
-                            asChild
-                            className="text-foreground hover:text-primary-600"
-                          >
-                            <Link to={activeRouteData.subItemUrl || "#"}>
-                              {activeRouteData.subItemTitle}
+                            <Link to={activeRouteData.itemUrl || "#"}>
+                              {activeRouteData.itemTitle}
                             </Link>
                           </BreadcrumbLink>
-                        ) : (
-                          <BreadcrumbPage className="text-primary-600 font-medium">
-                            {activeRouteData.subItemTitle}
-                          </BreadcrumbPage>
-                        )}
-                      </BreadcrumbItem>
-                      {activeRouteData.leafTitle && (
-                        <>
-                          <BreadcrumbSeparator className="text-muted-foreground" />
-                          <BreadcrumbItem>
-                            <BreadcrumbPage className="text-primary-600 font-medium">
-                              {activeRouteData.leafTitle}
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator className="text-muted-foreground" />
+                        <BreadcrumbItem>
+                          {activeRouteData.leafTitle ? (
+                            <BreadcrumbLink
+                              asChild
+                              className="text-foreground hover:text-primary-600 whitespace-nowrap"
+                            >
+                              <Link to={activeRouteData.subItemUrl || "#"}>
+                                {activeRouteData.subItemTitle}
+                              </Link>
+                            </BreadcrumbLink>
+                          ) : (
+                            <BreadcrumbPage className="text-primary-600 font-medium whitespace-nowrap">
+                              {activeRouteData.subItemTitle}
                             </BreadcrumbPage>
-                          </BreadcrumbItem>
-                        </>
-                      )}
-                    </>
-                  ) : (
-                    <>
-                      <BreadcrumbSeparator className="text-muted-foreground" />
-                      <BreadcrumbItem>
-                        <BreadcrumbPage className="text-primary-600 font-medium">
-                          {activeRouteData.itemTitle}
-                        </BreadcrumbPage>
-                      </BreadcrumbItem>
-                    </>
-                  )}
-                </>
-              ) : isDashboard ? (
-                <BreadcrumbItem>
-                  <BreadcrumbPage className="text-primary-600 font-medium">
-                    Dashboard
-                  </BreadcrumbPage>
-                </BreadcrumbItem>
-              ) : (
-                <div className="flex items-center gap-2">
-                  <Skeleton className="h-4 w-20 bg-gray-200" />
-                  <ChevronRight className="h-3 w-3 text-gray-300" />
-                  <Skeleton className="h-4 w-28 bg-gray-200" />
-                </div>
-              )}
-            </BreadcrumbList>
-          </Breadcrumb>
+                          )}
+                        </BreadcrumbItem>
+                        {activeRouteData.leafTitle && (
+                          <>
+                            <BreadcrumbSeparator className="text-muted-foreground" />
+                            <BreadcrumbItem>
+                              <BreadcrumbPage className="text-primary-600 font-medium whitespace-nowrap">
+                                {activeRouteData.leafTitle}
+                              </BreadcrumbPage>
+                            </BreadcrumbItem>
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        <BreadcrumbSeparator className="text-muted-foreground" />
+                        <BreadcrumbItem>
+                          <BreadcrumbPage className="text-primary-600 font-medium whitespace-nowrap">
+                            {activeRouteData.itemTitle}
+                          </BreadcrumbPage>
+                        </BreadcrumbItem>
+                      </>
+                    )}
+                  </>
+                ) : isDashboard ? (
+                  <BreadcrumbItem>
+                    <BreadcrumbPage className="text-primary-600 font-medium whitespace-nowrap">
+                      Dashboard
+                    </BreadcrumbPage>
+                  </BreadcrumbItem>
+                ) : (
+                  <div className="flex items-center gap-2">
+                    <Skeleton className="h-4 w-20 bg-gray-200" />
+                    <ChevronRight className="h-3 w-3 text-gray-300" />
+                    <Skeleton className="h-4 w-28 bg-gray-200" />
+                  </div>
+                )}
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
         </div>
-        <div className="flex justify-end items-center gap-x-2">
+        <div className="flex items-center gap-x-2 flex-shrink-0">
           <LanguageChange />
           <Bell className="text-muted-foreground hover:text-foreground cursor-pointer transition-colors" />
+          <ThemeToggleButton />
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

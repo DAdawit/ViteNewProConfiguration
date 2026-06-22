@@ -22,9 +22,9 @@ const Home = () => {
         }}
       >
         <div className="w-full bg-right-sidebar">
-          <div className="flex flex-1  gap-5">
+          <div className="flex flex-1 gap-5">
             <AppSidebar />
-            <SidebarInset className="w-full flex flex-col min-h-0 flex-1 overflow-hidden bg-neutral-50">
+            <SidebarInset className="relative w-full flex flex-col min-h-0 flex-1 bg-neutral-50">
               <Navbar />
               <Content />
             </SidebarInset>

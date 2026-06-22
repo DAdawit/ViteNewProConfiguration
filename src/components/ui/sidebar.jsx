@@ -26,9 +26,9 @@ import { HiOutlineMenuAlt2 } from "react-icons/hi";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
-const SIDEBAR_WIDTH = "10rem";
+const SIDEBAR_WIDTH = "16rem";
 const SIDEBAR_WIDTH_MOBILE = "80svw";
-const SIDEBAR_WIDTH_ICON = "6rem";
+const SIDEBAR_WIDTH_ICON = "7.5rem";
 const SIDEBAR_KEYBOARD_SHORTCUT = "b";
 
 const SidebarContext = React.createContext(null);
@@ -122,7 +122,7 @@ function SidebarProvider({
             ...style,
           }}
           className={cn(
-            "group/sidebar-wrapper has-data-[variant=inset]:bg-right-sidebar flex min-h-svh w-full",
+            "group/sidebar-wrapper has-data-[variant=inset]:bg-sidebar flex min-h-svh w-full",
             className,
           )}
           {...props}
@@ -149,7 +149,7 @@ function Sidebar({
       <div
         data-slot="sidebar"
         className={cn(
-          "bg-right-sidebar text-sidebar-foreground flex h-full w-(--sidebar-width) flex-col",
+          "bg-sidebar text-sidebar-foreground flex h-full w-(--sidebar-width) flex-col",
           className,
         )}
         {...props}
@@ -166,7 +166,7 @@ function Sidebar({
           data-sidebar="sidebar"
           data-slot="sidebar"
           data-mobile="true"
-          className="bg-right-sidebar text-sidebar-foreground w-(--sidebar-width) p-0 [&>button]:hidden border-0"
+          className="bg-primary-50 text-sidebar-foreground w-(--sidebar-width) p-0 [&>button]:hidden"
           style={{
             "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
           }}
@@ -208,7 +208,7 @@ function Sidebar({
       <div
         data-slot="sidebar-container"
         className={cn(
-          "fixed z-10 h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex",
+          "fixed z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex",
           side === "left"
             ? "group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]"
             : "group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]",
@@ -241,17 +241,17 @@ function SidebarTrigger({ className, onClick }) {
       data-slot="sidebar-trigger"
       variant="ghost"
       size="icon"
-      className={cn("size-5 bg-toggler-50", className)}
+      className={cn("size-7", className)}
       onClick={(event) => {
         onClick?.(event);
         toggleSidebar();
       }}
     >
       <div>
-        <HiOutlineMenuAlt2 size={21} className="text-white md:hidden" />
+        <HiOutlineMenuAlt2 size={24} className="md:hidden" />
       </div>
       <div>
-        <PanelLeftIcon size={21} className="text-white hidden md:block" />
+        <PanelLeftIcon size={24} className="hidden md:block" />
       </div>
       <span className="sr-only">Toggle Sidebar</span>
     </div>
