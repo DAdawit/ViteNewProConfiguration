@@ -10,6 +10,7 @@ import { sidebarLinks } from "@/utils/data";
 import { getFirstAllowedUrl } from "@/utils/checkPermission";
 import useUserStore from "@/Store/useUserStore";
 import { useMemo } from "react";
+import ButtonExamples from "./ButtonExamples";
 
 const CategoryRedirect = ({ category }) => {
   const user = useUserStore((state) => state.user);
@@ -57,6 +58,7 @@ const Content = () => {
 
   return (
     <Routes>
+      <Route path="/dashboard/buttons" element={<ButtonExamples />} />
       <Route path="/*" element={<Dashboard />} />
 
       {/* Fallback route for unmatched paths */}

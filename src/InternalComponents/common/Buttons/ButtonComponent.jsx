@@ -48,7 +48,6 @@ const ButtonComponent = ({
   // Text visibility
   showTextOnSm = false,
   showTextOnMobile = true,
-  customMobileBreakpoint = "md",
 
   // Loading component
   loadingComponent = null,
@@ -77,98 +76,119 @@ const ButtonComponent = ({
     return roundedStyles[rounded] || roundedStyles.lg;
   };
 
-  // Color variants mapping
+  // Color variants mapping - Using proper theme classes
   const colorStyles = {
     primary: {
-      filled: "bg-primary-700 text-primary-50 hover:bg-primary-800",
+      filled: "bg-primary-700 text-white hover:bg-primary-800",
       outlined:
-        "border border-primary-700 text-primary-700 hover:bg-primary-100 bg-transparent",
+        "border border-primary-700 text-primary-700 hover:bg-primary-50 bg-transparent",
       flat: "text-primary-700 hover:bg-primary-50 bg-transparent",
       destructive:
         "bg-destructive-50 text-destructive-950 hover:bg-destructive-100",
       reject: "bg-destructive-50 text-destructive-900",
-      icon: "hover:bg-primary-100 text-primary-700",
-      iconFilled: "bg-primary-700 text-primary-50 hover:bg-primary-800",
+      icon: "hover:bg-primary-50 text-primary-700",
+      iconFilled: "bg-primary-700 text-white hover:bg-primary-800",
       iconOutlined:
-        "border border-primary-700 text-primary-700 hover:bg-primary-100 bg-transparent",
-      destructiveIcon: "hover:bg-red-50 text-red-600",
-      destructiveIconFilled: "bg-red-600 text-white hover:bg-red-700",
+        "border border-primary-700 text-primary-700 hover:bg-primary-50 bg-transparent",
+      destructiveIcon: "hover:bg-destructive-50 text-destructive-600",
+      destructiveIconFilled:
+        "bg-destructive-600 text-white hover:bg-destructive-700",
       destructiveIconOutlined:
-        "border border-red-600 text-red-600 hover:bg-red-50 bg-transparent",
+        "border border-destructive-600 text-destructive-600 hover:bg-destructive-50 bg-transparent",
       link: "text-primary-700 hover:text-primary-800 hover:underline underline-offset-4",
       loading: "bg-primary-400 cursor-wait",
     },
     destructive: {
-      filled: "bg-red-600 text-white hover:bg-red-700",
+      filled: "bg-destructive-600 text-white hover:bg-destructive-700",
       outlined:
-        "border border-red-600 text-red-600 hover:bg-red-50 bg-transparent",
-      flat: "text-red-600 hover:bg-red-50 bg-transparent",
-      destructive: "bg-red-50 text-red-900 hover:bg-red-100",
-      reject: "bg-red-50 text-red-900",
-      icon: "hover:bg-red-100 text-red-600",
-      iconFilled: "bg-red-600 text-white hover:bg-red-700",
+        "border border-destructive-600 text-destructive-600 hover:bg-destructive-50 bg-transparent",
+      flat: "text-destructive-600 hover:bg-destructive-50 bg-transparent",
+      destructive:
+        "bg-destructive-50 text-destructive-950 hover:bg-destructive-100",
+      reject: "bg-destructive-50 text-destructive-900",
+      icon: "hover:bg-destructive-50 text-destructive-600",
+      iconFilled: "bg-destructive-600 text-white hover:bg-destructive-700",
       iconOutlined:
-        "border border-red-600 text-red-600 hover:bg-red-50 bg-transparent",
-      destructiveIcon: "hover:bg-red-50 text-red-600",
-      destructiveIconFilled: "bg-red-600 text-white hover:bg-red-700",
+        "border border-destructive-600 text-destructive-600 hover:bg-destructive-50 bg-transparent",
+      destructiveIcon: "hover:bg-destructive-50 text-destructive-600",
+      destructiveIconFilled:
+        "bg-destructive-600 text-white hover:bg-destructive-700",
       destructiveIconOutlined:
-        "border border-red-600 text-red-600 hover:bg-red-50 bg-transparent",
-      link: "text-red-600 hover:text-red-700 hover:underline underline-offset-4",
-      loading: "bg-red-400 cursor-wait",
+        "border border-destructive-600 text-destructive-600 hover:bg-destructive-50 bg-transparent",
+      link: "text-destructive-600 hover:text-destructive-700 hover:underline underline-offset-4",
+      loading: "bg-destructive-400 cursor-wait",
     },
     success: {
-      filled: "bg-green-600 text-white hover:bg-green-700",
+      filled: "bg-success-600 text-white hover:bg-success-700",
       outlined:
-        "border border-green-600 text-green-600 hover:bg-green-50 bg-transparent",
-      flat: "text-green-600 hover:bg-green-50 bg-transparent",
-      destructive: "bg-green-50 text-green-900 hover:bg-green-100",
-      reject: "bg-green-50 text-green-900",
-      icon: "hover:bg-green-100 text-green-600",
-      iconFilled: "bg-green-600 text-white hover:bg-green-700",
+        "border border-success-600 text-success-600 hover:bg-success-50 bg-transparent",
+      flat: "text-success-600 hover:bg-success-50 bg-transparent",
+      destructive: "bg-success-50 text-success-950 hover:bg-success-100",
+      reject: "bg-success-50 text-success-900",
+      icon: "hover:bg-success-50 text-success-600",
+      iconFilled: "bg-success-600 text-white hover:bg-success-700",
       iconOutlined:
-        "border border-green-600 text-green-600 hover:bg-green-50 bg-transparent",
-      destructiveIcon: "hover:bg-green-50 text-green-600",
-      destructiveIconFilled: "bg-green-600 text-white hover:bg-green-700",
+        "border border-success-600 text-success-600 hover:bg-success-50 bg-transparent",
+      destructiveIcon: "hover:bg-success-50 text-success-600",
+      destructiveIconFilled: "bg-success-600 text-white hover:bg-success-700",
       destructiveIconOutlined:
-        "border border-green-600 text-green-600 hover:bg-green-50 bg-transparent",
-      link: "text-green-600 hover:text-green-700 hover:underline underline-offset-4",
-      loading: "bg-green-400 cursor-wait",
+        "border border-success-600 text-success-600 hover:bg-success-50 bg-transparent",
+      link: "text-success-600 hover:text-success-700 hover:underline underline-offset-4",
+      loading: "bg-success-400 cursor-wait",
     },
     warning: {
-      filled: "bg-yellow-500 text-white hover:bg-yellow-600",
+      filled: "bg-warning-500 text-white hover:bg-warning-600",
       outlined:
-        "border border-yellow-500 text-yellow-500 hover:bg-yellow-50 bg-transparent",
-      flat: "text-yellow-500 hover:bg-yellow-50 bg-transparent",
-      destructive: "bg-yellow-50 text-yellow-900 hover:bg-yellow-100",
-      reject: "bg-yellow-50 text-yellow-900",
-      icon: "hover:bg-yellow-100 text-yellow-500",
-      iconFilled: "bg-yellow-500 text-white hover:bg-yellow-600",
+        "border border-warning-500 text-warning-600 hover:bg-warning-50 bg-transparent",
+      flat: "text-warning-600 hover:bg-warning-50 bg-transparent",
+      destructive: "bg-warning-50 text-warning-950 hover:bg-warning-100",
+      reject: "bg-warning-50 text-warning-900",
+      icon: "hover:bg-warning-50 text-warning-600",
+      iconFilled: "bg-warning-500 text-white hover:bg-warning-600",
       iconOutlined:
-        "border border-yellow-500 text-yellow-500 hover:bg-yellow-50 bg-transparent",
-      destructiveIcon: "hover:bg-yellow-50 text-yellow-600",
-      destructiveIconFilled: "bg-yellow-500 text-white hover:bg-yellow-600",
+        "border border-warning-500 text-warning-600 hover:bg-warning-50 bg-transparent",
+      destructiveIcon: "hover:bg-warning-50 text-warning-600",
+      destructiveIconFilled: "bg-warning-500 text-white hover:bg-warning-600",
       destructiveIconOutlined:
-        "border border-yellow-500 text-yellow-500 hover:bg-yellow-50 bg-transparent",
-      link: "text-yellow-600 hover:text-yellow-700 hover:underline underline-offset-4",
-      loading: "bg-yellow-400 cursor-wait",
+        "border border-warning-500 text-warning-600 hover:bg-warning-50 bg-transparent",
+      link: "text-warning-600 hover:text-warning-700 hover:underline underline-offset-4",
+      loading: "bg-warning-400 cursor-wait",
     },
     neutral: {
-      filled: "bg-gray-600 text-white hover:bg-gray-700",
+      filled: "bg-neutral-600 text-white hover:bg-neutral-700",
       outlined:
-        "border border-gray-600 text-gray-600 hover:bg-gray-50 bg-transparent",
-      flat: "text-gray-600 hover:bg-gray-50 bg-transparent",
-      destructive: "bg-gray-50 text-gray-900 hover:bg-gray-100",
-      reject: "bg-gray-50 text-gray-900",
-      icon: "hover:bg-gray-100 text-gray-600",
-      iconFilled: "bg-gray-600 text-white hover:bg-gray-700",
+        "border border-neutral-600 text-neutral-600 hover:bg-neutral-50 bg-transparent",
+      flat: "text-neutral-600 hover:bg-neutral-50 bg-transparent",
+      destructive: "bg-neutral-50 text-neutral-950 hover:bg-neutral-100",
+      reject: "bg-neutral-50 text-neutral-900",
+      icon: "hover:bg-neutral-50 text-neutral-600",
+      iconFilled: "bg-neutral-600 text-white hover:bg-neutral-700",
       iconOutlined:
-        "border border-gray-600 text-gray-600 hover:bg-gray-50 bg-transparent",
-      destructiveIcon: "hover:bg-gray-100 text-gray-600",
-      destructiveIconFilled: "bg-gray-600 text-white hover:bg-gray-700",
+        "border border-neutral-600 text-neutral-600 hover:bg-neutral-50 bg-transparent",
+      destructiveIcon: "hover:bg-neutral-50 text-neutral-600",
+      destructiveIconFilled: "bg-neutral-600 text-white hover:bg-neutral-700",
       destructiveIconOutlined:
-        "border border-gray-600 text-gray-600 hover:bg-gray-50 bg-transparent",
-      link: "text-gray-600 hover:text-gray-700 hover:underline underline-offset-4",
-      loading: "bg-gray-400 cursor-wait",
+        "border border-neutral-600 text-neutral-600 hover:bg-neutral-50 bg-transparent",
+      link: "text-neutral-600 hover:text-neutral-700 hover:underline underline-offset-4",
+      loading: "bg-neutral-400 cursor-wait",
+    },
+    info: {
+      filled: "bg-info-600 text-white hover:bg-info-700",
+      outlined:
+        "border border-info-600 text-info-600 hover:bg-info-50 bg-transparent",
+      flat: "text-info-600 hover:bg-info-50 bg-transparent",
+      destructive: "bg-info-50 text-info-950 hover:bg-info-100",
+      reject: "bg-info-50 text-info-900",
+      icon: "hover:bg-info-50 text-info-600",
+      iconFilled: "bg-info-600 text-white hover:bg-info-700",
+      iconOutlined:
+        "border border-info-600 text-info-600 hover:bg-info-50 bg-transparent",
+      destructiveIcon: "hover:bg-info-50 text-info-600",
+      destructiveIconFilled: "bg-info-600 text-white hover:bg-info-700",
+      destructiveIconOutlined:
+        "border border-info-600 text-info-600 hover:bg-info-50 bg-transparent",
+      link: "text-info-600 hover:text-info-700 hover:underline underline-offset-4",
+      loading: "bg-info-400 cursor-wait",
     },
   };
 

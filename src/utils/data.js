@@ -66,6 +66,14 @@ export const sidebarLinks = {
           require: "any",
           permissions: [""],
         },
+        {
+          title: language.buttonsExample,
+          url: "/dashboard/buttons",
+          selfView: true,
+          icon: TbReportSearch,
+          require: "any",
+          permissions: [""],
+        },
       ],
     },
     // Content Management

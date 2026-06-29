@@ -12,18 +12,18 @@ const UsersList2 = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-        <p className="text-red-600">Error: {error.message}</p>
+      <div className="bg-destructive-50 border border-destructive-200 rounded-lg p-4">
+        <p className="text-destructive-600">Error: {error.message}</p>
         <button
           onClick={refetch}
-          className="mt-2 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+          className="mt-2 px-4 py-2 bg-destructive-600 text-white rounded hover:bg-destructive-700"
         >
           Try Again
         </button>
@@ -39,7 +39,7 @@ const UsersList2 = () => {
         <div className="space-x-2">
           <button
             onClick={refetch}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            className="px-4 py-2 bg-primary-600 text-white rounded hover:bg-primary-700"
           >
             Refresh
           </button>

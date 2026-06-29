@@ -521,4 +521,5 @@ export const language = {
   approvalUnitPartitions: ["Approval Unit Partitions", "የማጽደቂያ ክፍል ክፍፍሎች"],
   groups: ["Groups", "ቡድኖች"],
   permissions: ["Permissions", "ፈቃዶች"],
+  buttonsExample: ["Buttons Example", "Buttons Example"],
 };

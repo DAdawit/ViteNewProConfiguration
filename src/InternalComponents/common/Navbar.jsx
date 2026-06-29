@@ -178,7 +178,7 @@ const Navbar = () => {
   const activeRouteData = getActiveRouteData();
 
   return (
-    <header className="sticky top-0 z-50 flex w-full h-16 items-center justify-between bg-white border-b border-border px-4 gap-4">
+    <header className="sticky top-0 z-50 flex w-full h-16 items-center justify-between card border-b border-border px-4 gap-4">
       {" "}
       <div className="flex w-full items-center justify-between gap-2">
         <div className="flex items-center gap-2 min-w-0 flex-1">
